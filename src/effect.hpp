@@ -3,6 +3,7 @@
 
 class Effect {
 public:
+    virtual void setup() {}
     virtual void update() = 0;
 };
 

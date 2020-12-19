@@ -3,11 +3,14 @@
 #include "fire_level.h"
 #include "on_off.h"
 #include "pulse.hpp"
+#include "const.hpp"
 
 FireLevel fire(D5);
 OnOff onOff(D5, 2000, 100, 500, 200, 50, 220);
 Pulse pulse1(D5);
 Pulse pulse2(D6);
+Const konst(D6, 255);
+
 
 void setup() {
   pinMode(D5, OUTPUT);
@@ -26,5 +29,5 @@ void setup() {
 
 void loop() {
   pulse1.update();
-  pulse2.update();
+  konst.update();
 }
