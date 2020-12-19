@@ -5,29 +5,42 @@
 #include "pulse.hpp"
 #include "const.hpp"
 
-FireLevel fire(D5);
-OnOff onOff(D5, 2000, 100, 500, 200, 50, 220);
-Pulse pulse1(D5);
-Pulse pulse2(D6);
-Const konst(D6, 255);
+
+OnOff waterMill(D1, 3000, 2000, 1000, 1000, 10, 255);
+Pulse ancientHall(D2);
+Pulse butcher(D3);
+Pulse vinegar(D4);
+Pulse rice(D5);
+FireLevel restaurant1(D6);
+FireLevel restaurant2(D7);
 
 
 void setup() {
+  pinMode(D1, OUTPUT);
+  pinMode(D2, OUTPUT);
+  pinMode(D3, OUTPUT);
+  pinMode(D4, OUTPUT);
   pinMode(D5, OUTPUT);
   pinMode(D6, OUTPUT);
+  pinMode(D7, OUTPUT);
 
-  pulse1.setLevel(0, 255);
-  pulse1.setPulses(1, 5);
-  pulse1.setPulse(500, 10);
-  pulse1.setLevel(0, 100);
-
-  pulse2.setLevel(40, 255);
-  pulse2.setPulses(2, 10);
+  ancientHall.setLevel(10, 255);
+  ancientHall.setPulses(2, 10);
+  butcher.setLevel(10, 255);
+  butcher.setPulses(2,5);
+  vinegar.setLevel(30, 200);
+  rice.setLevel(30, 200);
 
   Serial.begin(9600);
 }
 
 void loop() {
-  pulse1.update();
-  konst.update();
+  waterMill.update();
+  ancientHall.update();
+  butcher.update();
+
+  vinegar.update();
+  rice.update();
+  restaurant1.update();
+  restaurant2.update();
 }
