@@ -14,6 +14,10 @@ public:
         return *this;
     }
 
+    inline void setup() {
+        pinMode(m_pin, OUTPUT);
+    }
+
     void update();
 
 private:

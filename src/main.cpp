@@ -14,17 +14,27 @@ Pulse rice(D5);
 FireLevel restaurant1(D6);
 FireLevel restaurant2(D7);
 
+uint8_t const c_numEffects = 7;
+
+Effect* effects[c_numEffects] = {
+  &waterMill,
+  &ancientHall,
+  &butcher,
+  &vinegar,
+  &rice,
+  &restaurant1,
+  &restaurant2
+};
+
 
 void setup() {
-  pinMode(D1, OUTPUT);
-  pinMode(D2, OUTPUT);
-  pinMode(D3, OUTPUT);
-  pinMode(D4, OUTPUT);
-  pinMode(D5, OUTPUT);
-  pinMode(D6, OUTPUT);
-  pinMode(D7, OUTPUT);
+  // setup
+  for (uint8_t i = 0; i < c_numEffects; ++i) {
+    effects[i]->setup();
+  }
 
-  waterMill.setOnTime(1000).setOffTime(500).setRiseTime(1000).setFallTime(10);
+  // configure
+  waterMill.setOnTime(1000).setOffTime(500).setLevel(30, 200);
 
   ancientHall.setLevel(10, 255).setPulses(2, 10);
   butcher.setLevel(10, 255).setPulses(2, 5);
@@ -38,12 +48,7 @@ void setup() {
 }
 
 void loop() {
-  waterMill.update();
-  ancientHall.update();
-  butcher.update();
-
-  vinegar.update();
-  rice.update();
-  restaurant1.update();
-  restaurant2.update();
+  for (uint8_t i = 0; i < c_numEffects; ++i) {
+    effects[i]->update();
+  }
 }

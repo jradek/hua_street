@@ -4,7 +4,7 @@
 
 
 FireLevel::FireLevel(uint8_t pin)
-  : _pin(pin)
+  : m_pin(pin)
 {
   _value = random(0, m_maxLevel);
   reset();
@@ -55,7 +55,7 @@ void FireLevel::update()
 
 void FireLevel::performOutput() {
   uint8_t output = scaleValue(getNormalizedValue(), 1, 200);
-  analogWrite(_pin, 50 + output);
+  analogWrite(m_pin, 50 + output);
 }
 
 float FireLevel::getNormalizedValue()

@@ -10,6 +10,10 @@ class FireLevel : public Effect
 public:
   explicit FireLevel(uint8_t pin);
 
+  inline void setup() {
+      pinMode(m_pin, OUTPUT);
+  }
+
   inline FireLevel& setMaxLevel(uint16_t lvl = 65535) {
     m_maxLevel = lvl;
     return *this;
@@ -34,7 +38,7 @@ public:
 private:
   void performOutput(); 
 
-  uint8_t _pin;
+  uint8_t m_pin;
 
   uint16_t m_maxLevel = 65535;
   uint16_t m_minLevelIncrement = 500;

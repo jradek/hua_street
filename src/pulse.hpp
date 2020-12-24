@@ -11,6 +11,10 @@ class Pulse : public Effect {
 public:
     explicit Pulse(uint8_t pin);
 
+    inline void setup() {
+        pinMode(m_pin, OUTPUT);
+    }
+
     inline Pulse& setPulses(uint8_t minPulses, uint8_t maxPulses) {
         m_minPulses = minPulses;
         m_maxPulses = maxPulses;

@@ -17,6 +17,10 @@ class OnOff : public Effect
 public:
     explicit OnOff(uint8_t pin);
 
+    inline void setup() {
+        pinMode(m_pin, OUTPUT);
+    }
+
     inline OnOff& setOnTime(unsigned msec) {
         m_onTimeMSec = msec;
         return *this;
