@@ -32,6 +32,8 @@ void setup() {
   vinegar.setLevel(30, 200);
   rice.setLevel(30, 200);
 
+  // restaurant1.setMaxLevel(2000).setIncrement(100, 100);
+
   Serial.begin(9600);
 }
 
