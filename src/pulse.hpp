@@ -9,25 +9,29 @@
  */
 class Pulse : public Effect {
 public:
-    Pulse(uint8_t pin);
+    explicit Pulse(uint8_t pin);
 
-    inline void setPulses(uint8_t minPulses, uint8_t maxPulses) {
+    inline Pulse& setPulses(uint8_t minPulses, uint8_t maxPulses) {
         m_minPulses = minPulses;
         m_maxPulses = maxPulses;
+        return *this;
     }
 
-    inline void setLevel(uint8_t minLevel, uint8_t maxLevel) {
+    inline Pulse& setLevel(uint8_t minLevel, uint8_t maxLevel) {
         m_minLevel = minLevel;
         m_maxLevel = m_maxLevel;
+        return *this;
     }
 
-    inline void setPulse(unsigned pulseLengthMSec, unsigned pulsePauseMSec) {
+    inline Pulse& setPulse(unsigned pulseLengthMSec, unsigned pulsePauseMSec) {
         m_pulseLengthMSec = pulseLengthMSec;
         m_pulsePauseMSec = pulsePauseMSec;
+        return *this;
     }
 
-    inline void setSequencePause(unsigned msec) {
+    inline Pulse& setSequencePause(unsigned msec) {
         m_sequencePauseMSec = msec;
+        return *this;
     } 
 
     void update();

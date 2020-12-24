@@ -6,7 +6,7 @@
 #include "const.hpp"
 
 
-OnOff waterMill(D1, 3000, 2000, 1000, 1000, 10, 255);
+OnOff waterMill(D1);
 Pulse ancientHall(D2);
 Pulse butcher(D3);
 Pulse vinegar(D4);
@@ -24,10 +24,11 @@ void setup() {
   pinMode(D6, OUTPUT);
   pinMode(D7, OUTPUT);
 
-  ancientHall.setLevel(10, 255);
-  ancientHall.setPulses(2, 10);
-  butcher.setLevel(10, 255);
-  butcher.setPulses(2,5);
+  waterMill.setOnTime(1000).setOffTime(500).setRiseTime(1000).setFallTime(10);
+
+  ancientHall.setLevel(10, 255).setPulses(2, 10);
+  butcher.setLevel(10, 255).setPulses(2, 5);
+
   vinegar.setLevel(30, 200);
   rice.setLevel(30, 200);
 

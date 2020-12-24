@@ -15,13 +15,33 @@ class OnOff : public Effect
     };
 
 public:
-    OnOff(uint8_t pin, 
-        unsigned onTimeMSec, 
-        unsigned offTimeMSec, 
-        unsigned riseTimeMSec,
-        unsigned fallTimeMSec,
-        uint8_t minLevel = 0,
-        uint8_t maxLevel = 255);
+    explicit OnOff(uint8_t pin);
+
+    inline OnOff& setOnTime(unsigned msec) {
+        m_onTimeMSec = msec;
+        return *this;
+    }
+
+    inline OnOff& setOffTime(unsigned msec) {
+        m_offTimeMSec = msec;
+        return *this;
+    }
+
+    inline OnOff& setRiseTime(unsigned msec) {
+        m_riseTimeMSec = msec;
+        return *this;
+    }
+
+    inline OnOff& setFallTime(unsigned msec) {
+        m_fallTimeMSec = msec;
+        return *this;
+    }
+
+    inline OnOff& setLevel(uint8_t minLevel = 0, uint8_t maxLevel = 255) {
+        m_minLevel = minLevel;
+        m_maxLevel = maxLevel;
+        return *this;
+    }
 
     void update();
 
@@ -30,12 +50,12 @@ private:
 
     uint8_t m_pin;
     unsigned long m_t;
-    unsigned m_onTimeMSec;
-    unsigned m_offTimeMSec;
-    unsigned m_riseTimeMSec;
-    unsigned m_fallTimeMSec;
-    uint8_t m_minLevel;
-    uint8_t m_maxLevel;
+    unsigned m_onTimeMSec = 1000;
+    unsigned m_offTimeMSec = 1000;
+    unsigned m_riseTimeMSec = 500;
+    unsigned m_fallTimeMSec = 500;
+    uint8_t m_minLevel = 0;
+    uint8_t m_maxLevel = 255;
     Mode m_mode;
 };
 

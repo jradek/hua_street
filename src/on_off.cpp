@@ -3,22 +3,9 @@
 #include <Arduino.h>
 
 
-OnOff::OnOff(uint8_t pin, 
-    unsigned onTimeMSec, 
-    unsigned offTimeMSec, 
-    unsigned riseTimeMSec,
-    unsigned fallTimeMSec,
-    uint8_t minLevel,
-    uint8_t maxLevel)
+OnOff::OnOff(uint8_t pin)
     : m_pin(pin)
     , m_t(millis())
-    , m_onTimeMSec(onTimeMSec)
-    , m_offTimeMSec(offTimeMSec)
-    , m_riseTimeMSec(riseTimeMSec)
-    , m_fallTimeMSec(fallTimeMSec)
-    , m_minLevel(minLevel)
-    , m_maxLevel(maxLevel)
-    , m_mode(Mode::Rise)
 {}
 
 
