@@ -5,5 +5,5 @@ Const::Const(uint8_t pin)
 {}
 
 void Const::update() {
-    analogWrite(m_pin, m_level);
+    analogWrite(m_pin, m_isActive ? m_level : 0);
 }

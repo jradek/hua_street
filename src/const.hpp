@@ -5,7 +5,7 @@
 
 #include "effect.hpp"
 
-class Const {
+class Const : public Effect {
 public:
     explicit Const(uint8_t pin);
 
@@ -17,6 +17,7 @@ public:
     inline void setup() {
         pinMode(m_pin, OUTPUT);
     }
+
 
     void update();
 

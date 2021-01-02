@@ -64,7 +64,7 @@ void OnOff::performOutput(float value) {
     float range = m_maxLevel - m_minLevel;
     int16_t res = m_minLevel + range * value;
     res = constrain(res, m_minLevel, m_maxLevel);
-    analogWrite(m_pin, res);
+    analogWrite(m_pin, m_isActive ? res : 0);
 }
 
 

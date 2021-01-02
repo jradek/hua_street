@@ -55,7 +55,7 @@ void FireLevel::update()
 
 void FireLevel::performOutput() {
   uint8_t output = scaleValue(getNormalizedValue(), 1, 200);
-  analogWrite(m_pin, 50 + output);
+  analogWrite(m_pin, m_isActive ? 50 + output : 0);
 }
 
 float FireLevel::getNormalizedValue()

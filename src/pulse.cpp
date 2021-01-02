@@ -9,7 +9,7 @@ void Pulse::update() {
     unsigned long now = millis();
 
     if (now < m_sleepUtil) {
-        analogWrite(m_pin, m_minLevel);
+        analogWrite(m_pin, m_isActive ? m_minLevel : 0);
         return;
     } else {
         if (m_calcNewValues) {
@@ -46,7 +46,7 @@ void Pulse::update() {
     uint8_t value = m_minLevel + (m_currentMaxLevel - m_minLevel) * scale;
     value = constrain(value, 0, 255);
 
-    analogWrite(m_pin, value);
+    analogWrite(m_pin, m_isActive ? value : 0);
 
     if (m_pulseCount <= 0) {
         m_calcNewValues = true;
