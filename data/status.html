@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html charset="UTF-8">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uptime Test</title>
+  </head>
+  <body>
+    <h1>Uptime Test</h1>
+    <p>Up since <span id="time-ms">??</span> ms active, i.e. <span id="time-s">??</span> seconds.</p>
+    <br>
+    <p>Street is <span id="active">??</span></p>
+    <script type="application/javascript">
+    
+    var xmlhttp = new XMLHttpRequest();
+    var url = "/status.json";
+
+    function updateStart() {
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4) {
+                if(this.status == 200) {
+                    try {
+                        var data = JSON.parse(this.responseText);
+                        updateView(data);
+                    } catch (e) {
+                        console.log("Update failed: " + e);
+                        console.log(this.responseText);
+                    }
+                }
+
+                window.setTimeout(updateStart, 500);
+            }
+        };
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+    }
+
+    function updateView(data) {
+        document.getElementById("time-ms").innerHTML = data.uptime;
+        document.getElementById("time-s").innerHTML = (data.uptime/1000).toFixed(1);
+        document.getElementById("active").innerHTML = data.active;
+    }
+
+    updateStart();
+    </script>
+  </body>
+</html>

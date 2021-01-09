@@ -1,6 +1,8 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
+#include <ESP8266mDNS.h>
+#include <LittleFS.h>
 
 #include "fire_level.h"
 #include "on_off.h"
@@ -53,6 +55,17 @@ void handle_street_off() {
 }
 
 
+void statusJson() {
+  // Serial.println("request status");
+  String output = "{ \"uptime\":";
+  output += String(millis());
+  output += String(", \"active\":");
+  output += String(isActive);
+  output += " }";
+  server.send(200, "application/json", output);
+}
+
+
 void setup()
 {
   // setup
@@ -73,11 +86,35 @@ void setup()
   // restaurant1.setMaxLevel(2000).setIncrement(100, 100);
 
   // wifi
-  Serial.begin(9600);
+  Serial.begin(115200);
+
+  Serial.print("Connecting.");
+  WiFi.mode(WIFI_STA);
+  WiFi.hostname(hostname);
+  WiFi.begin(ssid, wifiPassword);
+  do{
+    delay(500);
+    Serial.print(".");
+  } while (WiFi.status() != WL_CONNECTED);
+  Serial.print("OK\nIP: ");
+  Serial.println(WiFi.localIP());
+
+  if (!MDNS.begin(hostname)) {
+    Serial.println("Error setting up MDNS responder!");
+  }
+
+  if(!LittleFS.begin()) {
+    Serial.println("LittleFS Mount failed");
+    // while(true) yield(); //Stop here
+  }
 
   server.on("/", handle_home_page);
   server.on("/street/on", handle_street_on);
   server.on("/street/off", handle_street_off);
+
+  server.serveStatic("/status.html", LittleFS, "/status.html");
+  server.on("/status.json", statusJson);
+
   server.begin();
 }
 
@@ -90,5 +127,6 @@ void loop()
     effects[i]->update();
   }
 
+  MDNS.update();
   server.handleClient();
 }
